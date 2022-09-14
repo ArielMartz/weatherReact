@@ -4,10 +4,10 @@ import './input.module.css';
 
 
 
-const Input = () => {
+const Input = ({text, submit}) => {
     return(
-        <form className="input">
-            <input type="text" placeholder="Ingrese la ubicacion" className="input-value"/>
+        <form className="input" onSubmit={submit}>
+            <input type="text" placeholder="Ingrese la ubicacion" className="input-value" onChange/>
             <span className="input-icon">
                 <FaSearch/>
             </span>
