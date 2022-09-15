@@ -15,15 +15,38 @@ function App() {
   const [humidity, setHumidity] = useState(null);
   const [wind, setWind] = useState(null);
   const [country, setCountry] = useState("");
+  const [dataFetched, setDataFetched] = useState(false)
 
-const API_KEY = "654c975b7125167e9a7accd6467fdc48";
+
 
 const fetchData = async (e) => {
     e.preventDefault();
-  
-    const res = await axios.get("https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid={API key}&units=metric");
-    const data = await res.data
 
+
+    try{
+      const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${process.env.REACT_APP_API_KEY}&units=metric`);
+      const data = await res.data
+
+      setDegrees(data.main.temp)
+      setLocation(data.name)
+      setDescription(data.weather[0].description)
+      setIcon(data.weather[0].icon)
+      setHumidity(data.main.humidity)
+      setWind(data.wind.speed)
+      setCountry(data.sys.country)
+
+      setDataFetched(true)
+    }catch(err){
+      console.log(err)
+      alert("Please enter a valid location")
+  }
+}
+
+const defaultDataFetched = async () =>{
+  if(!dataFetched){
+    const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=accra&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
+    const data = await res.data
+  
     setDegrees(data.main.temp)
     setLocation(data.name)
     setDescription(data.weather[0].description)
@@ -31,17 +54,15 @@ const fetchData = async (e) => {
     setHumidity(data.main.humidity)
     setWind(data.wind.speed)
     setCountry(data.sys.country)
-
-    console.log(data)
   }
+
+}
+
 
 
 useEffect(() => {
-    fetchData()
-    return () => {
-      
-    };
-  }, []);
+  defaultDataFetched()
+}, [])
 
 
   return (
@@ -49,7 +70,8 @@ useEffect(() => {
       <div className="weather">
         <Input
           text={(e) => setuserLocation(e.target.value)}
-          submit={fetchData()}
+          submit={fetchData}
+          func={fetchData}
         />
         <div>
         <h3 className="weather-location">Clima en {location}</h3>
