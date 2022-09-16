@@ -7,7 +7,7 @@ import './input.module.css';
 const Input = ({text, submit}, {func}) => {
     return(
         <form className="input" onSubmit={submit}>
-            <input type={"text"} placeholder="Ingrese la ubicacion" className="input-value" onChange={text}/>
+            <input type={"text"} placeholder="Please enter location" className="input-value" onChange={text}/>
             <span className="input-icon" onClick={func}>
                 <FaSearch/>
             </span>

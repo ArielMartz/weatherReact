@@ -13,7 +13,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url("https://www.exoticca.com/es/blog/wp-content/uploads/2019/02/Estas-son-las-mejores-playas-de-Brasil-Te-las-vas-a-perder.jpg");
-  
+  background-image: no-repeat;
+  background-image: fixed;
+  background-size: cover;
+  background-image: no-repeat;
 }
 
 

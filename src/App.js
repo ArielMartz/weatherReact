@@ -44,7 +44,7 @@ const fetchData = async (e) => {
 
 const defaultDataFetched = async () =>{
   if(!dataFetched){
-    const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=accra&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
+    const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=londres&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
     const data = await res.data
   
     setDegrees(data.main.temp)
@@ -56,6 +56,14 @@ const defaultDataFetched = async () =>{
     setCountry(data.sys.country)
   }
 
+}
+
+const date = () => {
+  let today = new Date();
+  let day = today.getDay();
+  let month = month.getMonth() + 1;
+  let year = year.getYear();
+  let date = day + '/' + month + '/' + year;
 }
 
 
@@ -74,26 +82,26 @@ useEffect(() => {
           func={fetchData}
         />
         <div>
-        <h3 className="weather-location">Clima en {location}</h3>
+        <h3 className="weather-location">Weather in {location}</h3>
 
         <div>
         <h1 className='weather-degree'> {degrees} °C</h1>
         </div>
 
         <div className='weather-description'>
-          <div className='weather-description-head'>
-          <span className='weather-icon'>
-          
-          </span>
-          <h3>{description}</h3>
+            <div className='weather-description-head'>
+            <span className='weather-icon'>
+              <img src={`http://openweathermap.org/img/w/${icon}.png`} alt="weather icon" />
+            </span>
+            <h3>{description}</h3>
           </div>
 
-          <h3>Humedad: {humidity}%</h3>
-          <h3>Velocidad del viento: {wind} m/s</h3>
+          <h3>Humidity: {humidity}%</h3>
+          <h3>Wind Speed: {wind}m/s</h3>
         </div>
         <div className='weather-country'>
           <h3>{country}</h3>
-          <h2 className='weather-date'>12/09/2022, 22:20 PM</h2>
+          <h2 className='weather-date'>{date}</h2>
         </div>
       </div>
 
